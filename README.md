@@ -60,13 +60,18 @@ http://18.163.7.245:26659/okchain/v1/
   <tr>
     <td>2020/7/6</td>
     <td>2h</td>
-    <td>準備作業：プロジェクト作成、環境
-    設定など</td>
+    <td>
+    準備作業：プロジェクト作成、環境
+    設定など
+    </td>
   </tr>
   <tr>
     <td>2020/7/7</td>
     <td>2h</td>
-    <td>API、Docを確認する、Fetch API試作</td>
+    <td>
+    bitbucket git settings
+    API、Docを確認する、Fetch API試作
+    </td>
   </tr>
 </table>
 
