@@ -6,11 +6,11 @@ import { get_latest_blocks } from 'apis/index';
 
 export function Wallet() {
 
-    const [data, setData] = useState('data')
+    const [data, setData] = useState('')
 
     useEffect(() => {
         get_latest_blocks()
-            .then(res => setData(JSON.stringify(res.block.header.height)))
+            .then(res => setData(JSON.stringify(res.data)))
             .catch(err => console.log(err))
     }, [])
 

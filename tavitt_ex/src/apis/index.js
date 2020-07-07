@@ -15,12 +15,12 @@ const config = {
     // multi: {
     //     headers: {
     //         'Content-Type': 'multipart/form-data'
-    //     }
+    //     }blocks/latest
     // }
 }
 export function get_latest_blocks() {
     return new Promise((resolve, reject) => {
-        axios.get(baseurl + 'blocks/latest', config.get)
+        axios.get(baseurl + 'tokens', config.get)
             .then(res => {
                 console.log(res.data)
                 resolve(res.data)
