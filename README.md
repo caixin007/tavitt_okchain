@@ -43,9 +43,7 @@ http://18.163.7.245:26659/okchain/v1/
 
 | Date     | Time    | Work Content |
 | --------|---------|-------|
-| 2020/7/6  | 2h   | 準備作業：プロジェクト作成、環境設定など    |
+| 2020/7/6 | 2h | 準備作業：プロジェクト作成、環境設定など    |
 | 2020/7/7 | 2h | bitbucket git settings  API、Docを確認する、Fetch API試作    |
-
-
-
-
+| 2020/7/8 | 1h | Okchain担当者と連絡し、資料の確認などを行う（疑問があるAPIなど）    |
+| 2020/7/9 | 2h | Okchainアカウント作成、Wallet作成、Testnet Currencies確認　|
