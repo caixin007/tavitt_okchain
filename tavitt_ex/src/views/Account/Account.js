@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { Button } from '@material-ui/core';
 
-import { LatestOrders, MatchOrders } from './items';
+// import { LatestOrders, MatchOrders } from './items';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Homepage = () => {
+const Account = () => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -19,15 +20,6 @@ const Homepage = () => {
                 container
                 spacing={4}
             >
-                {/* <Grid
-                    item
-                    lg={8}
-                    md={12}
-                    xl={9}
-                    xs={12}
-                >
-                    <LatestOrders />
-                </Grid> */}
                 <Grid
                     item
                     lg={8}
@@ -35,11 +27,12 @@ const Homepage = () => {
                     xl={9}
                     xs={12}
                 >
-                    <MatchOrders />
+                    <Button>test</Button>
+                    {/* <MatchOrders /> */}
                 </Grid>
             </Grid>
         </div>
     )
 }
 
-export default Homepage;
+export default Account;

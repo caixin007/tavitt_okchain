@@ -9691,6 +9691,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"moment@npm:^2.27.0":
+  version: 2.27.0
+  resolution: "moment@npm:2.27.0"
+  checksum: 1e42f8e1cf1bf17edb0da7a2666e2681b76194d86403c251d31882d22a137ece5749898fc0cc360487fcfc5f735079f8870e89a7fd23a2ef5cbc48e34d884c2c
+  languageName: node
+  linkType: hard
+
 "move-concurrently@npm:^1.0.1":
   version: 1.0.1
   resolution: "move-concurrently@npm:1.0.1"
@@ -10733,6 +10740,13 @@ fsevents@^1.2.7:
     safe-buffer: ^5.0.1
     sha.js: ^2.4.8
   checksum: 69469ab4cbc841b4819f24b3dfbdbb6726b144487b3b012fb2d5483072ceb9b9cb71f4f9659bb38d69610f9f6335ed67f892115440cc776870cbc26a227d0f4f
+  languageName: node
+  linkType: hard
+
+"perfect-scrollbar@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "perfect-scrollbar@npm:1.5.0"
+  checksum: 08f6adcc41d9f0a319b0d2b198a97d83de8a09c2c32e7bdb5146166854721bfe5496c5c641c69316734072cd69067e706a275443979a2839b124c46d53c2eb10
   languageName: node
   linkType: hard
 
@@ -11804,7 +11818,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -12089,6 +12103,19 @@ fsevents@^1.2.7:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 9659c004a370c15275784b1e848b735a7d403b5ba455e76b48d0840b05ee12bd79ef1dea520e7d70228367e0d95cc3cb894fbcbfda91c198b3339a96a0ecacc4
+  languageName: node
+  linkType: hard
+
+"react-perfect-scrollbar@npm:^1.5.8":
+  version: 1.5.8
+  resolution: "react-perfect-scrollbar@npm:1.5.8"
+  dependencies:
+    perfect-scrollbar: ^1.5.0
+    prop-types: ^15.6.1
+  peerDependencies:
+    react: ">=16.3.3"
+    react-dom: ">=16.3.3"
+  checksum: a22fc9d3d74cfe33a2d86ff8213629634e1c3706a129390e4b4769b4e76d1778f51595db89c40b32b4f6a463b8e5fc349c2557ab02a9acc47d9293e29a4fb5ea
   languageName: node
   linkType: hard
 
@@ -13950,12 +13977,15 @@ resolve@1.15.0:
     axios: ^0.19.2
     clsx: ^1.1.1
     history: ^5.0.0
+    moment: ^2.27.0
     prop-types: ^15.7.2
     react: ^16.13.1
     react-dom: ^16.13.1
+    react-perfect-scrollbar: ^1.5.8
     react-router-dom: ^5.2.0
     react-scripts: 3.4.1
     rebass: ^4.0.7
+    uuid: ^8.2.0
   languageName: unknown
   linkType: soft
 
@@ -14533,6 +14563,15 @@ resolve@1.15.0:
   bin:
     uuid: ./bin/uuid
   checksum: 28cbce9f7d0d63229a0a1926bac76d72c22ff21009e5581477c5dad59e00a52ea48f487048476c85fd9dddcd7a29216475d33e4da851ccf8fe04baafe2957c74
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "uuid@npm:8.2.0"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: ae481c2b4502c780d94661dacbb32093dc8bd2c641af25174fd90b645892e19b59a69d66dd3cc12d2bbd6885b8c0684e77f3e12858c7f9d2bdb7547b13a9e8b7
   languageName: node
   linkType: hard
 
