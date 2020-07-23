@@ -4,7 +4,10 @@ import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
 
+import AccInfo from './items/AccInfo';
+
 // import { LatestOrders, MatchOrders } from './items';
+const address = 'okchain178nexvc7ewddl43zdqfcjhp23s4ph8sg7x925r';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,8 +30,7 @@ const Account = () => {
                     xl={9}
                     xs={12}
                 >
-                    <Button>test</Button>
-                    {/* <MatchOrders /> */}
+                    {address ? <AccInfo address={address} /> : null}
                 </Grid>
             </Grid>
         </div>

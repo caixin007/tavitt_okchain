@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
-import { LatestOrders, MatchOrders } from './items';
+import MatchOrders from './items/MatchOrders';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,18 +19,9 @@ const Homepage = () => {
                 container
                 spacing={4}
             >
-                {/* <Grid
-                    item
-                    lg={8}
-                    md={12}
-                    xl={9}
-                    xs={12}
-                >
-                    <LatestOrders />
-                </Grid> */}
                 <Grid
                     item
-                    lg={8}
+                    lg={10}
                     md={12}
                     xl={9}
                     xs={12}

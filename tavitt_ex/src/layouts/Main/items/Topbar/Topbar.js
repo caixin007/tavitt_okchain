@@ -25,18 +25,56 @@ const useStyles = makeStyles(theme => ({
 const Topbar = props => {
   const { className, onSidebarOpen, ...rest } = props;
   const classes = useStyles();
+  const [notifications] = useState([]);
+
   return (
     <AppBar
       {...rest}
       className={clsx(classes.root, className)}
     >
       <Toolbar>
-        {/* <RouterLink to="/"> */}
-        <Typography variant="h3" noWrap>
-          Tavitt
-        </Typography>
-        {/* </RouterLink> */}
+        {/* <Hidden lgUp> */}
+
+        <IconButton
+          color="inherit"
+          onClick={onSidebarOpen}
+        >
+          <MenuIcon />
+        </IconButton>
+        {/* </Hidden> */}
+        <RouterLink
+          style={{
+            textDecoration: 'none'
+          }}
+          to="/"
+        >
+          {/* <img
+            alt="Logo"
+            src="/images/logos/logo--white.svg"
+          /> */}
+          <Typography variant="h3" noWrap>
+            Tavitt
+          </Typography>
+        </RouterLink>
         <div className={classes.flexGrow} />
+        {/* <Hidden mdDown> */}
+        <IconButton color="inherit">
+          <Badge
+            badgeContent={notifications.length}
+            color="primary"
+            variant="dot"
+          >
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        {/* <IconButton
+            className={classes.signOutButton}
+            color="inherit"
+          >
+            <InputIcon />
+          </IconButton> */}
+        {/* </Hidden> */}
+
       </Toolbar>
     </AppBar >
   );

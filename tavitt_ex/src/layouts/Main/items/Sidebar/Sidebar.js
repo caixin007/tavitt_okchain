@@ -11,6 +11,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 
 import { Profile, SidebarNav } from './components';
 
@@ -39,9 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 const Sidebar = props => {
   const { open, variant, onClose, className, ...rest } = props;
-
   const classes = useStyles();
-
   const pages = [
     {
       title: 'Homepage',
@@ -56,7 +55,7 @@ const Sidebar = props => {
     {
       title: 'Projects',
       href: '/projects',
-      icon: <AccountBoxIcon />
+      icon: <SwapHorizIcon />
     },
     {
       title: 'Settings',
@@ -69,8 +68,8 @@ const Sidebar = props => {
     <Drawer
       anchor="left"
       classes={{ paper: classes.drawer }}
-      // onClose={onClose}
-      open={true}
+      onClose={onClose}
+      open={open}
       variant={variant}
     >
       <div

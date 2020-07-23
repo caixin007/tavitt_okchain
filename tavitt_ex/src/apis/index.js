@@ -45,9 +45,9 @@ export function get_match_order() {
     })
 }
 
-export function get_account() {
+export function get_account(address) {
     return new Promise((resolve, reject) => {
-        axios.get(baseurl + 'accounts/okchain178nexvc7ewddl43zdqfcjhp23s4ph8sg7x925r?show=all', config.get)
+        axios.get(baseurl + `accounts/${address}?show=all`, config.get)
             .then(res => {
                 // console.log(res.data)
                 resolve(res.data)

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable react/display-name */
 import React, { forwardRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter, NavLink as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -67,7 +67,7 @@ const SidebarNav = props => {
           key={page.title}
         >
           <Button
-            activeClassName={classes.active}
+            // activeClassName={classes.active}
             className={classes.button}
             onClick={() => history.push(page.href)}
           // component={CustomRouterLink}

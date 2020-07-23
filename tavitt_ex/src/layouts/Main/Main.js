@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
+import { useMediaQuery } from '@material-ui/core';
 import { Sidebar, Topbar, Footer } from './items';
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,17 +28,35 @@ const Main = props => {
     const { children } = props;
     const classes = useStyles();
 
+    const theme = useTheme();
+    const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
+        defaultMatches: true
+    });
+
+    const [openSidebar, setOpenSidebar] = useState(false);
+
+    const handleSidebarOpen = () => {
+        setOpenSidebar(true);
+    };
+    const handleSidebarClose = () => {
+        setOpenSidebar(false);
+    };
+    const shouldOpenSidebar = isDesktop ? true : openSidebar;
+
+
     return (
         <div
             className={clsx({
                 [classes.root]: true,
-                [classes.shiftContent]: true
+                [classes.shiftContent]: isDesktop
             })}
         >
-            <Topbar />
+            <Topbar onSidebarOpen={handleSidebarOpen} />
             <Sidebar
-                open={true}
-                variant={'persistent'}
+                onClose={handleSidebarClose}
+                open={shouldOpenSidebar}
+                variant={isDesktop ? 'persistent' : 'temporary'}
+            // variant={'persistent'}
             />
             <main className={classes.content}>
                 {children}

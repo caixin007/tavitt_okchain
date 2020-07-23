@@ -52,7 +52,7 @@ const statusColors = {
     refunded: 'danger'
 };
 
-const LatestOrders = props => {
+const MatchOrders = props => {
     const { className, ...rest } = props;
     const classes = useStyles();
     const [orders, setOrders] = useState([]);
@@ -112,8 +112,8 @@ const LatestOrders = props => {
     );
 };
 
-LatestOrders.propTypes = {
+MatchOrders.propTypes = {
     className: PropTypes.string
 };
 
-export default LatestOrders;
+export default MatchOrders;
