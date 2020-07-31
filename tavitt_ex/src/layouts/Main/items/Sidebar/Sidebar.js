@@ -12,6 +12,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+import AccountTree from '@material-ui/icons/AccountTree';
 
 import { Profile, SidebarNav } from './components';
 
@@ -53,9 +54,14 @@ const Sidebar = props => {
       icon: <AccountBoxIcon />
     },
     {
+      title: 'Transaction',
+      href: '/transaction',
+      icon: <SwapHorizIcon />
+    },
+    {
       title: 'Projects',
       href: '/projects',
-      icon: <SwapHorizIcon />
+      icon: <AccountTree />
     },
     {
       title: 'Settings',

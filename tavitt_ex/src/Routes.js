@@ -6,12 +6,19 @@ import { Main as MainLayout } from './layouts';
 
 import {
   Homepage as HomepageView,
-  Account as AccountView
+  Account as AccountView,
+  Transaction as TransactionView
 } from './views';
 
 const Routes = () => {
   return (
     <Switch>
+      <RouteWithLayout
+        component={TransactionView}
+        exact
+        layout={MainLayout}
+        path="/transaction"
+      />
       <RouteWithLayout
         component={AccountView}
         exact

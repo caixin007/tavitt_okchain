@@ -18,9 +18,6 @@ const config = {
     // }
 }
 
-const address = 'okchain178nexvc7ewddl43zdqfcjhp23s4ph8sg7x925r';
-
-
 export function get_latest_blocks() {
     return new Promise((resolve, reject) => {
         axios.get(baseurl + 'blocks/latest', config.get)
@@ -51,8 +48,23 @@ export function get_account(address) {
             .then(res => {
                 // console.log(res.data)
                 resolve(res.data)
-            }
-            )
+            })
             .catch(err => reject(err))
     })
 }
+
+export function get_history(address) {
+    return new Promise((resolve, reject) => {
+        axios.get(baseurl + `transactions?address=${address}`, config.get)
+            .then(res => {
+                // console.log(res.data)
+                resolve(res.data)
+            })
+            .catch(err => reject(err))
+    })
+}
+// export function place_order(){
+//     return new Promise((resolve, reject) => {
+//         axios.post()
+//     })
+// }

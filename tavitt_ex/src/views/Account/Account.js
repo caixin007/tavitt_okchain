@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { Button } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
+import Import from './items/Import';
 import AccInfo from './items/AccInfo';
-
-// import { LatestOrders, MatchOrders } from './items';
-const address = 'okchain178nexvc7ewddl43zdqfcjhp23s4ph8sg7x925r';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Account = () => {
     const classes = useStyles();
+    const store = useSelector(store => store);
+    const currencies = store.address.address === null ? null : store.address.address.currencies;
+    const address = store.address.address === null ? null : store.address.address.address;
+
     return (
         <div className={classes.root}>
             <Grid
@@ -30,7 +32,14 @@ const Account = () => {
                     xl={9}
                     xs={12}
                 >
-                    {address ? <AccInfo address={address} /> : null}
+                    {address ?
+                        <AccInfo
+                            address={address}
+                            currencies={currencies}
+                        />
+                        :
+                        <Import />
+                    }
                 </Grid>
             </Grid>
         </div>
