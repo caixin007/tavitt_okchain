@@ -1,5 +1,5 @@
 const axios = require('axios');
-const baseurl = 'http://18.163.7.245:26659/okchain/v1/'
+const baseurl = 'https://www.okex.com/okchain/v1/'
 const config = {
     get: {
         headers: {
@@ -57,14 +57,48 @@ export function get_history(address) {
     return new Promise((resolve, reject) => {
         axios.get(baseurl + `transactions?address=${address}`, config.get)
             .then(res => {
+                // console.log(res.data.data.data)
+                var promises = [];
+                res.data.data.data.forEach((element, idx) => {
+                    promises.push(
+                        get_transaction(element.txhash)
+                            .then(res => {
+                                // console.log(res)
+                                var format_res = {};
+                                format_res.timestamp = res.timestamp;
+                                format_res.txhash = res.txhash;
+                                format_res.msg = res.tx.value.msg;
+                                return format_res
+                            })
+                            .catch(err => reject(err))
+                    )
+                })
+                return Promise.all(promises)
+                    .then(res => resolve(res))
+                    .catch(err => reject(err))
+                // console.log(res.data)
+                // resolve(res.data)
+            })
+            .catch(err => reject(err))
+    })
+}
+
+export function get_transaction(txhash) {
+    return new Promise((resolve, reject) => {
+        axios.get(baseurl + `txs/${txhash}`, config.get)
+            .then(res => {
                 // console.log(res.data)
                 resolve(res.data)
             })
             .catch(err => reject(err))
     })
 }
+
+// txs/${txhash}
 // export function place_order(){
 //     return new Promise((resolve, reject) => {
 //         axios.post()
 //     })
 // }
+
+// order/depthbook?product=tbtc_tusdk

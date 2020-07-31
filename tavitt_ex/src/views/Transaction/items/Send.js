@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
+import Moment from 'moment';
 
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
@@ -9,7 +10,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { addAddress } from 'redux/reducers/actions';
 import {
     get_match_order,
-    get_account
+    get_account,
+    get_history,
+    get_transaction
 } from 'apis/index';
 
 import {
@@ -56,6 +59,12 @@ const useStyles = makeStyles((theme) => ({
     title: {
         textAlign: 'center',
         padding: theme.spacing(1),
+    },
+    table: {
+        width: '100%'
+    },
+    addresscell: {
+        // width: 200
     }
 }));
 
@@ -69,12 +78,27 @@ const Send = props => {
 
     const [to, setTo] = useState(null);
     const [amount, setAmount] = useState(null);
+    const [transactions, setTransactions] = useState([]);
     // console.log(address )className={classes.root} noValidate autoComplete="off"
 
     function sendToken(to, amount) {
         console.log(to, amount);
     }
 
+    useEffect(() => {
+        get_history(address)
+            .then(res => {
+                // console.log(res);
+                setTransactions(res);
+                // if (res.data === null) setError(JSON.parse(res.msg).message)
+                // else dispatch(addAddress(res.data))
+                // setAccount(res.data);
+                // if (Array.isArray(res.data.data)) setTransactions(res.data.data);
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+    // console.log(transactions)
     return (
         <form className={classes.root}>
             <Grid container spacing={3}>
@@ -123,33 +147,59 @@ const Send = props => {
                         <Typography variant="h4" className={classes.title}>
                             Transaction History
                         </Typography>
-                        <Table>
+                        <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
-                                    {/* <TableCell>Pair ID</TableCell>
-                                    <TableCell>Base asset</TableCell>
-                                    <TableCell></TableCell>
+                                    <TableCell>Send/Receive</TableCell>
+                                    <TableCell>Address</TableCell>
+                                    <TableCell>Amount</TableCell>
+                                    <TableCell>Token</TableCell>
+                                    <TableCell>Time</TableCell>
+                                    {/* <TableCell></TableCell>
                                     <TableCell>Price</TableCell>
                                     <TableCell>Quote asset</TableCell>
                                     <TableCell>Minimal trade size</TableCell> */}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {/* {
-                                    orders.map((order, index) => (
+                                {
+                                    transactions.map((transaction, index) => (
                                         <TableRow
                                             hover
                                             key={index}
                                         >
-                                            <TableCell>{order.token_pair_id}</TableCell>
-                                            <TableCell>{order.base_asset_symbol}</TableCell>
-                                            <TableCell>=</TableCell>
-                                            <TableCell>{order.price}</TableCell>
-                                            <TableCell>{order.quote_asset_symbol}</TableCell>
-                                            <TableCell>{order.min_trade_size}</TableCell>
+                                            <TableCell>
+                                                {
+                                                    transaction.msg[0].value.to_address === address ?
+                                                        'Receive' : 'To'
+                                                }
+                                            </TableCell>
+                                            <TableCell className={classes.addresscell}>
+                                                {
+                                                    transaction.msg[0].value.to_address === address ?
+                                                        `From: 
+                                                        ${transaction.msg[0].value.from_address}`
+                                                        :
+                                                        `To:${transaction.msg[0].value.to_address}`
+                                                }
+                                            </TableCell>
+                                            <TableCell>
+                                                {transaction.msg[0].value.amount[0].amount}
+                                            </TableCell>
+                                            <TableCell>
+                                                {transaction.msg[0].value.amount[0].denom}
+                                            </TableCell>
+                                            <TableCell>
+                                                <div>
+                                                    {Moment.parseZone(transaction.timestamp).local().format('DD MMM YYYY')}
+                                                </div>
+                                                <div>
+                                                    {Moment.parseZone(transaction.timestamp).local().format('LT')}
+                                                </div>
+                                            </TableCell>
                                         </TableRow>
                                     ))
-                                } */}
+                                }
                             </TableBody>
                         </Table>
                     </Paper>
