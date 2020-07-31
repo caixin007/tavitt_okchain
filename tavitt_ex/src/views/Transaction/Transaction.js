@@ -16,18 +16,18 @@ const useStyles = makeStyles((theme) => ({
 const Transaction = () => {
     const classes = useStyles();
     const store = useSelector(store => store);
-    const address = store.address.address === null ? null : store.address.address.address;
+    const address = store.address === null ? null : store.address.address;
 
     return (
         <div className={classes.root}>
-            {address ?
-                <Send
-                    address={address}
-                />
-                :
+            {address === null ?
                 <Typography variant="h5">
                     There is no wallet account, please import an account!
                 </Typography>
+                :
+                <Send
+                    address={address}
+                />
             }
         </div>
     )

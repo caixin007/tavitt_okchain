@@ -33,7 +33,7 @@ const Import = () => {
         get_account(add)
             .then(res => {
                 if (res.data === null) setError(JSON.parse(res.msg).message)
-                else dispatch(addAddress(res.data))
+                else dispatch(addAddress(res.data.address))
                 // setAccount(res.data);
                 console.log(res);
             })

@@ -17,7 +17,17 @@ const config = {
     //     }/okchain/v1/accounts/{address}
     // }
 }
-
+export function get_tokens() {
+    return new Promise((resolve, reject) => {
+        axios.get(baseurl + 'tokens', config.get)
+            .then(res => {
+                // console.log(res.data)
+                resolve(res.data)
+            }
+            )
+            .catch(err => reject(err))
+    })
+}
 export function get_latest_blocks() {
     return new Promise((resolve, reject) => {
         axios.get(baseurl + 'blocks/latest', config.get)
@@ -33,6 +43,17 @@ export function get_latest_blocks() {
 export function get_match_order() {
     return new Promise((resolve, reject) => {
         axios.get(baseurl + 'products', config.get)
+            .then(res => {
+                // console.log(res.data)
+                resolve(res.data)
+            }
+            )
+            .catch(err => reject(err))
+    })
+}
+export function get_token_pair() {
+    return new Promise((resolve, reject) => {
+        axios.get(baseurl + 'match_order', config.get)
             .then(res => {
                 // console.log(res.data)
                 resolve(res.data)
@@ -93,12 +114,3 @@ export function get_transaction(txhash) {
             .catch(err => reject(err))
     })
 }
-
-// txs/${txhash}
-// export function place_order(){
-//     return new Promise((resolve, reject) => {
-//         axios.post()
-//     })
-// }
-
-// order/depthbook?product=tbtc_tusdk

@@ -23,11 +23,12 @@ const composedEnhancers = compose(middlewareEnhancer, monitorReducerEnhancer);
 const persistConfig = {
   key: 'root',
   storage: localStorage,
+  whitelist: ['address']
   // timeout: null,
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(persistedReducer, undefined, composedEnhancers);
+const store = createStore(persistedReducer, undefined);
 const persistor = persistStore(store);
 
 ReactDOM.render(

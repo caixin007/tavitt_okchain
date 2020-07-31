@@ -9,7 +9,7 @@ function addAddressReducer(state = null, action) {
     switch (action.type) {
         case ADD_ADDRESS:
             return Object.assign({}, state, {
-                address: action.address
+                address: action.payload
             })
         default:
             return state

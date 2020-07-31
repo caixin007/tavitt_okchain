@@ -16,8 +16,11 @@ const useStyles = makeStyles((theme) => ({
 const Account = () => {
     const classes = useStyles();
     const store = useSelector(store => store);
-    const currencies = store.address.address === null ? null : store.address.address.currencies;
-    const address = store.address.address === null ? null : store.address.address.address;
+
+
+    const address = (store.address === null) ? null : store.address.address;
+    // console.log(address)
+    // const currencies = address ? [] : store.address.address.currencies;
 
     return (
         <div className={classes.root}>
@@ -32,13 +35,13 @@ const Account = () => {
                     xl={9}
                     xs={12}
                 >
-                    {address ?
+                    {address === null ?
+                        <Import />
+                        :
                         <AccInfo
                             address={address}
-                            currencies={currencies}
+                        // currencies={currencies}
                         />
-                        :
-                        <Import />
                     }
                 </Grid>
             </Grid>

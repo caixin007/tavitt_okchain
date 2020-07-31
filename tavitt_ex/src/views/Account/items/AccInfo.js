@@ -60,17 +60,21 @@ const useStyles = makeStyles(theme => ({
 // };
 
 const GetAccount = props => {
-    const { className, address, currencies, ...rest } = props;
+    const { className, address, ...rest } = props;
     const classes = useStyles();
     const [hideToken, setHideToken] = useState(true);
     const dispatch = useDispatch();
     const [error, setError] = useState(null);
+    const [currencies, setCurrencies] = useState([]);
 
     useEffect(() => {
         get_account(address)
             .then(res => {
                 if (res.data === null) setError(JSON.parse(res.msg).message)
-                else dispatch(addAddress(res.data))
+                else {
+                    dispatch(addAddress(res.data.address));
+                    setCurrencies(res.data.currencies);
+                }
                 // setAccount(res.data);
                 // console.log(res);
             })

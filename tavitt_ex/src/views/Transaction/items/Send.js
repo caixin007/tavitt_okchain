@@ -6,14 +6,14 @@ import Moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { addAddress } from 'redux/reducers/actions';
 import {
-    get_match_order,
-    get_account,
     get_history,
-    get_transaction
+    get_token_pair
 } from 'apis/index';
+
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import {
     Card,
@@ -33,8 +33,6 @@ import {
 } from '@material-ui/core';
 
 import Typography from '@material-ui/core/Typography';
-
-// const address_local = 'okchain178nexvc7ewddl43zdqfcjhp23s4ph8sg7x925r';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -65,40 +63,48 @@ const useStyles = makeStyles((theme) => ({
     },
     addresscell: {
         // width: 200
+    },
+    formControl: {
+        width: '100%',
+        marginTop: theme.spacing(2.5),
     }
 }));
 
 const Send = props => {
     const { className, address, ...rest } = props;
     const classes = useStyles();
-    const dispatch = useDispatch();
-    // const store = useSelector(store => store);
-    // const [address, setAddress] = useState(null);
-    // const [error, setError] = useState(null);
+    // const dispatch = useDispatch();
+
+    const [transactions, setTransactions] = useState([]);
+    const [tokenPairs, setTokenPairs] = useState([]);
 
     const [to, setTo] = useState(null);
     const [amount, setAmount] = useState(null);
-    const [transactions, setTransactions] = useState([]);
-    // console.log(address )className={classes.root} noValidate autoComplete="off"
+    const [exAmount, setExAmount] = useState(null);
+    const [tpair, setTpair] = useState(null);
 
-    function sendToken(to, amount) {
+    const sendToken = () => {
         console.log(to, amount);
+    }
+
+    const exchangeToken = () => {
+        console.log(tpair, exAmount);
     }
 
     useEffect(() => {
         get_history(address)
             .then(res => {
-                // console.log(res);
                 setTransactions(res);
-                // if (res.data === null) setError(JSON.parse(res.msg).message)
-                // else dispatch(addAddress(res.data))
-                // setAccount(res.data);
-                // if (Array.isArray(res.data.data)) setTransactions(res.data.data);
             })
             .catch(err => console.log(err))
+
+        get_token_pair()
+            .then(res => {
+                setTokenPairs(res.data);
+            })
+            .catch(err => console.log(err));
     }, [])
 
-    // console.log(transactions)
     return (
         <form className={classes.root}>
             <Grid container spacing={3}>
@@ -135,11 +141,57 @@ const Send = props => {
                                 style={
                                     { backgroundColor: '#eee' }
                                 }
-                                onClick={() => sendToken(to, amount)}
+                                onClick={() => sendToken()}
                             >Send</Button>
                         </div>
                         {/* </CardContent>
                         </Card> */}
+                    </Paper>
+                </Grid>
+                <Grid item xs={4}>
+                    <Paper className={classes.paper}>
+                        <Typography variant="h4" className={classes.title}>
+                            DEX
+                        </Typography>
+
+                        <FormControl variant="outlined" className={classes.formControl}>
+                            <InputLabel htmlFor="outlined-token-pair-native-simple">Token Pair</InputLabel>
+                            <Select
+                                native
+                                // value={state.age}
+                                onChange={(input) => { setTpair(input.target.value) }}
+                                label="Token Pair"
+                                inputProps={{
+                                    name: 'Token Pair',
+                                    id: 'outlined-token-pair-native-simple',
+                                }}
+                            >
+                                <option aria-label="None" value="" />
+                                {tokenPairs.map((tokenPair, index) => (
+                                    <option key={index} value={tokenPair}>{tokenPair}</option>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <Typography variant="h5">
+                            Amount:
+                                </Typography>
+                        <TextField
+                            // error={error ? true : false}
+                            id="trans-amount"
+                            onChange={input => setExAmount(input.target.value)}
+                            style={{ width: '100%' }}
+                            // helperText={error ? error : null}
+                            variant="outlined"
+                        />
+                        {/* </div> */}
+                        <div className={classes.button}>
+                            <Button
+                                style={
+                                    { backgroundColor: '#eee' }
+                                }
+                                onClick={() => exchangeToken()}
+                            >Exchange</Button>
+                        </div>
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>
@@ -155,10 +207,6 @@ const Send = props => {
                                     <TableCell>Amount</TableCell>
                                     <TableCell>Token</TableCell>
                                     <TableCell>Time</TableCell>
-                                    {/* <TableCell></TableCell>
-                                    <TableCell>Price</TableCell>
-                                    <TableCell>Quote asset</TableCell>
-                                    <TableCell>Minimal trade size</TableCell> */}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
