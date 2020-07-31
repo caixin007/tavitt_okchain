@@ -10,6 +10,9 @@ import {
     get_history,
     get_token_pair
 } from 'apis/index';
+import {
+    send_token
+} from 'apis/okchain';
 
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -84,7 +87,11 @@ const Send = props => {
     const [tpair, setTpair] = useState(null);
 
     const sendToken = () => {
-        console.log(to, amount);
+        send_token()
+            .then(res => {
+                console.log('return:', res)
+            })
+            .catch(err => console.log(err))
     }
 
     const exchangeToken = () => {
@@ -94,6 +101,7 @@ const Send = props => {
     useEffect(() => {
         get_history(address)
             .then(res => {
+                console.log(res)
                 setTransactions(res);
             })
             .catch(err => console.log(err))
@@ -128,6 +136,7 @@ const Send = props => {
                             Amount:
                                 </Typography>
                         <TextField
+                            type="number"
                             // error={error ? true : false}
                             id="trans-amount"
                             onChange={input => setAmount(input.target.value)}
@@ -177,6 +186,7 @@ const Send = props => {
                                 </Typography>
                         <TextField
                             // error={error ? true : false}
+                            type="number"
                             id="trans-amount"
                             onChange={input => setExAmount(input.target.value)}
                             style={{ width: '100%' }}

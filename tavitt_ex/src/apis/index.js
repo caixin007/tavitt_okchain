@@ -17,6 +17,7 @@ const config = {
     //     }/okchain/v1/accounts/{address}
     // }
 }
+
 export function get_tokens() {
     return new Promise((resolve, reject) => {
         axios.get(baseurl + 'tokens', config.get)
@@ -78,7 +79,7 @@ export function get_history(address) {
     return new Promise((resolve, reject) => {
         axios.get(baseurl + `transactions?address=${address}`, config.get)
             .then(res => {
-                // console.log(res.data.data.data)
+                console.log(res.data.data)
                 var promises = [];
                 res.data.data.data.forEach((element, idx) => {
                     promises.push(
