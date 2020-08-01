@@ -1,10 +1,8 @@
 # Tavitt-OkChain Project
 
 
-##### testnet url
-http://18.163.7.245:26659/okchain/v1/
-
-
+Test Web Page: 
+http://www.greenguardians.org/
 
 # Table of contents
 
