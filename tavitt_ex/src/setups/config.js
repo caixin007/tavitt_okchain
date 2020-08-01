@@ -163,5 +163,7 @@
 
 
 // "51B9A3C25A49DADFF45D88C20E8FD67CC17D17D2D7BB3700BCBADDB6BA5CD2F0"
-// {"tx":{"msg":[{"type":"okchain/token/MsgTransfer","value":{"amount":[{"amount":"1.00000000","denom":"okt"}],"from_address":"okchain17wydevafdqc9fxj8q9zlnd0ay9r32htplz7qzr","to_address":"okchain178nexvc7ewddl43zdqfcjhp23s4ph8sg7x925r"}}],"signatures":[{"pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AhhgDgLyc0t8WOCx6u3WQ++uw1iBKRv7OZD5IM/DZfXz"},"signature":"jH7cD7JYPeKboUGJAUL9FESB8gvsppJKr5yrpF3vv8BwV/aPeKZ6SxfjBKEUs24p4MQ8rBMo5Iiro2XmA56dJg=="}],"memo":"","fee":{"amount":[{"amount":"0.02000000","denom":"okt"}],"gas":"200000"}},"mode":"block"}
+// {"tx":{"msg":[{"type":"okchain/token/MsgTransfer","value":{"amount":[{"amount":"1.00000000","denom":"okt"}],
+// "from_address":"okchain17wydevafdqc9fxj8q9zlnd0ay9r32htplz7qzr","to_address":"okchain178nexvc7ewddl43zdqfcjhp23s4ph8sg7x925r"}}],"signatures":[{"pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AhhgDgLyc0t8WOCx6u3WQ++uw1iBKRv7OZD5IM/DZfXz"},"signature":"jH7cD7JYPeKboUGJAUL9FESB8gvsppJKr5yrpF3vv8BwV/aPeKZ6SxfjBKEUs24p4MQ8rBMo5Iiro2XmA56dJg=="}],"memo":"",
+// "fee":{"amount":[{"amount":"0.02000000","denom":"okt"}],"gas":"200000"}},"mode":"block"}
 // signmsg:  {"account_number":"203741","chain_id":"okchain","fee":{"amount":[{"amount":"0.02000000","denom":"okt"}],"gas":"200000"},"memo":"","msgs":[{"type":"okchain/token/MsgTransfer","value":{"amount":[{"amount":"1.00000000","denom":"okt"}],"from_address":"okchain17wydevafdqc9fxj8q9zlnd0ay9r32htplz7qzr","to_address":"okchain178nexvc7ewddl43zdqfcjhp23s4ph8sg7x925r"}}],"sequence":"0"}

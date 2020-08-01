@@ -1,57 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import clsx from 'clsx';
-import Moment from 'moment';
-
+// import { useSelector, useDispatch } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-    get_history,
-    get_token_pair
-} from 'apis/index';
-import {
-    send_token
-} from 'apis/okchain';
-
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-
-import {
-    Card,
-    // CardActions,
-    CardHeader,
-    CardContent,
-    Button,
-    // Divider,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Grid
-    // Tooltip,
-    // TableSortLabel
-} from '@material-ui/core';
-
 import Typography from '@material-ui/core/Typography';
 
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+
+import {
+    Button,
+    Grid
+} from '@material-ui/core';
+
+import {
+    get_history,
+    get_token_pair,
+    get_account_available
+} from 'apis/index';
+
+import SendConfirm from './SendConfirm';
+import ExConfirm from './ExConfirm';
+import TransHis from './TransHis';
+import OrderHis from './OrderHis';
+
+import TabPanel from './TabPanel';
+
 const useStyles = makeStyles((theme) => ({
-    container: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(12, 1fr)',
-        gridGap: theme.spacing(3),
-    },
     paper: {
         padding: theme.spacing(1),
-        // textAlign: 'center',
         color: theme.palette.text.secondary,
         whiteSpace: 'nowrap',
         marginBottom: theme.spacing(1),
-    },
-    divider: {
-        margin: theme.spacing(2, 0),
     },
     button: {
         padding: theme.spacing(1),
@@ -60,12 +43,6 @@ const useStyles = makeStyles((theme) => ({
     title: {
         textAlign: 'center',
         padding: theme.spacing(1),
-    },
-    table: {
-        width: '100%'
-    },
-    addresscell: {
-        // width: 200
     },
     formControl: {
         width: '100%',
@@ -77,26 +54,19 @@ const Send = props => {
     const { className, address, ...rest } = props;
     const classes = useStyles();
     // const dispatch = useDispatch();
-
     const [transactions, setTransactions] = useState([]);
     const [tokenPairs, setTokenPairs] = useState([]);
-
+    const [tokens, setTokens] = useState([]);
+    // okchain17wydevafdqc9fxj8q9zlnd0ay9r32htplz7qzr
+    const [openSend, setOpenSend] = useState(false);
     const [to, setTo] = useState(null);
-    const [amount, setAmount] = useState(null);
-    const [exAmount, setExAmount] = useState(null);
+    const [amount, setAmount] = useState(0);
+    const [denom, setDenom] = useState(null);
+
+    const [openEx, setOpenEx] = useState(false);
+    const [price, setPrice] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [tpair, setTpair] = useState(null);
-
-    const sendToken = () => {
-        send_token()
-            .then(res => {
-                console.log('return:', res)
-            })
-            .catch(err => console.log(err))
-    }
-
-    const exchangeToken = () => {
-        console.log(tpair, exAmount);
-    }
 
     useEffect(() => {
         get_history(address)
@@ -105,18 +75,23 @@ const Send = props => {
                 setTransactions(res);
             })
             .catch(err => console.log(err))
-
         get_token_pair()
             .then(res => {
                 setTokenPairs(res.data);
             })
             .catch(err => console.log(err));
+        get_account_available(address)
+            .then(res => {
+                // console.log(res.data.currencies)
+                setTokens(res.data.currencies);
+            })
+            .catch(err => console.log(err))
     }, [])
 
     return (
         <form className={classes.root}>
             <Grid container spacing={3}>
-                <Grid item xs={4}>
+                <Grid item xs={6}>
                     <Paper className={classes.paper}>
                         <Typography variant="h4" className={classes.title}>
                             Send
@@ -134,30 +109,48 @@ const Send = props => {
                         />
                         <Typography variant="h5">
                             Amount:
-                                </Typography>
+                        </Typography>
                         <TextField
                             type="number"
                             // error={error ? true : false}
                             id="trans-amount"
                             onChange={input => setAmount(input.target.value)}
-                            style={{ width: '100%' }}
+                            style={{ width: '60%' }}
                             // helperText={error ? error : null}
                             variant="outlined"
                         />
+                        <FormControl variant="outlined" style={{ width: '40%' }}>
+                            <InputLabel htmlFor="outlined-token-pair-native-simple">Token Name</InputLabel>
+                            <Select
+                                native
+                                // value={denom}
+                                onChange={(input) => { setDenom(input.target.value) }}
+                                label="Token name"
+                                variant="outlined"
+                                inputProps={{
+                                    name: 'Token name',
+                                    id: 'outlined-token-name-native-simple',
+                                }}
+                            >
+                                <option aria-label="None" value="" />
+                                {tokens.map((token, index) => (
+                                    <option key={index} value={token.symbol}>{token.symbol}</option>
+                                ))}
+                            </Select>
+
+                        </FormControl>
                         {/* </div> */}
                         <div className={classes.button}>
                             <Button
                                 style={
                                     { backgroundColor: '#eee' }
                                 }
-                                onClick={() => sendToken()}
+                                onClick={() => setOpenSend(true)}
                             >Send</Button>
                         </div>
-                        {/* </CardContent>
-                        </Card> */}
                     </Paper>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={6}>
                     <Paper className={classes.paper}>
                         <Typography variant="h4" className={classes.title}>
                             DEX
@@ -181,88 +174,72 @@ const Send = props => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <Typography variant="h5">
-                            Amount:
-                                </Typography>
-                        <TextField
-                            // error={error ? true : false}
-                            type="number"
-                            id="trans-amount"
-                            onChange={input => setExAmount(input.target.value)}
-                            style={{ width: '100%' }}
-                            // helperText={error ? error : null}
-                            variant="outlined"
-                        />
-                        {/* </div> */}
+                        <div>
+                            <TextField
+                                placeholder="Price"
+                                // error={error ? true : false}
+                                type="number"
+                                id="order-price"
+                                onChange={input => setPrice(input.target.value)}
+                                style={{ width: '50%', paddingTop: 20 }}
+                                // helperText={error ? error : null}
+                                variant="outlined"
+                            />
+                            <TextField
+                                placeholder="Quantity"
+                                // error={error ? true : false}
+                                type="number"
+                                id="order-quantity"
+                                onChange={input => setQuantity(input.target.value)}
+                                style={{ width: '50%', paddingTop: 20 }}
+                                // helperText={error ? error : null}
+                                variant="outlined"
+                            />
+                        </div>
                         <div className={classes.button}>
                             <Button
                                 style={
                                     { backgroundColor: '#eee' }
                                 }
-                                onClick={() => exchangeToken()}
+                                onClick={() => setOpenEx(true)}
+                            // onClick={() => test()}
                             >Exchange</Button>
                         </div>
                     </Paper>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <Typography variant="h4" className={classes.title}>
+                        <TabPanel
+                            address={address}
+                            transactions={transactions}
+                        />
+                        {/* <Typography variant="h4" className={classes.title}>
                             Transaction History
                         </Typography>
-                        <Table className={classes.table}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Send/Receive</TableCell>
-                                    <TableCell>Address</TableCell>
-                                    <TableCell>Amount</TableCell>
-                                    <TableCell>Token</TableCell>
-                                    <TableCell>Time</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    transactions.map((transaction, index) => (
-                                        <TableRow
-                                            hover
-                                            key={index}
-                                        >
-                                            <TableCell>
-                                                {
-                                                    transaction.msg[0].value.to_address === address ?
-                                                        'Receive' : 'To'
-                                                }
-                                            </TableCell>
-                                            <TableCell className={classes.addresscell}>
-                                                {
-                                                    transaction.msg[0].value.to_address === address ?
-                                                        `From: 
-                                                        ${transaction.msg[0].value.from_address}`
-                                                        :
-                                                        `To:${transaction.msg[0].value.to_address}`
-                                                }
-                                            </TableCell>
-                                            <TableCell>
-                                                {transaction.msg[0].value.amount[0].amount}
-                                            </TableCell>
-                                            <TableCell>
-                                                {transaction.msg[0].value.amount[0].denom}
-                                            </TableCell>
-                                            <TableCell>
-                                                <div>
-                                                    {Moment.parseZone(transaction.timestamp).local().format('DD MMM YYYY')}
-                                                </div>
-                                                <div>
-                                                    {Moment.parseZone(transaction.timestamp).local().format('LT')}
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                }
-                            </TableBody>
-                        </Table>
+                        <TransHis
+                            address={address}
+                            transactions={transactions}
+                        /> */}
                     </Paper>
                 </Grid>
             </Grid>
+            <SendConfirm
+                open={openSend}
+                address={address}
+                to={to}
+                amount={amount}
+                cancel={() => setOpenSend(false)}
+                denom={denom}
+            />
+            <ExConfirm
+                open={openEx}
+                address={address}
+                price={price}
+                quantity={quantity}
+                side="BUY"
+                cancel={() => setOpenEx(false)}
+                tpair={tpair}
+            />
         </form >
     )
 }

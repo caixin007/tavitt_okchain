@@ -28,7 +28,7 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(persistedReducer, undefined);
+const store = createStore(persistedReducer, undefined, composedEnhancers);
 const persistor = persistStore(store);
 
 ReactDOM.render(
