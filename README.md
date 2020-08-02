@@ -103,6 +103,10 @@ Exchange Function
 
     ・テストトークンで、価値がある内容がそれほどないけど、形的には他プロジェクトと連携している感じです。ここで他プロジェクトの情報交換などは、サーバーが必要になってくるので、リストだけし、アイディアになります。
     
+    ・送金＆オーダー時入力するmnemonic words : 
+    library valid throw garden gym saddle very recall helmet goddess seminar later
+   
+    mnemonic wordsはPrivate Keyと同じ感じです、mnemonic wordsからPrivate Key生成できる
     
 # TimeCard
 
