@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react';
-
+import React from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-
-import MatchOrders from './items/MatchOrders';
 import Typography from '@material-ui/core/Typography';
-
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(4)
     },
     title: {
-        // color: '#eee'
         width: '100%',
         alignItems: 'center',
         padding: theme.spacing(4)
@@ -25,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Homepage = () => {
     const classes = useStyles();
-    const store = useSelector(store => store);
     return (
         <div className={classes.root}>
             <Grid
@@ -39,8 +33,6 @@ const Homepage = () => {
                     xl={9}
                     xs={12}
                 >
-                    {/* {JSON.stringify(store)} */}
-                    {/* <MatchOrders /> */}
                     <Typography variant="h1" className={classes.title}>
                         This is why we can go everywhere
                     </Typography>

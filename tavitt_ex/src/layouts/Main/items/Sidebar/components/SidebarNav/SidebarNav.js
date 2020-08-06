@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable react/display-name */
-import React, { forwardRef } from 'react';
-import { useHistory, withRouter, NavLink as RouterLink } from 'react-router-dom';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -40,18 +40,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// const CustomRouterLink = forwardRef((props, ref) => (
-//   <div
-//     ref={ref}
-//     style={{ flexGrow: 1 }}
-//   >
-//     <RouterLink {...props} />
-//   </div>
-// ));
-
 const SidebarNav = props => {
   const { pages, className, ...rest } = props;
-
   const classes = useStyles();
   const history = useHistory();
 

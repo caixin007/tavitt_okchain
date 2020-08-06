@@ -2,30 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-
 import Avatar from '@material-ui/core/Avatar';
 import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Typography from '@material-ui/core/Typography';
 
-// import MatchOrders from './items/MatchOrders';
-
-import { useSelector, useDispatch } from 'react-redux';
 import {
     get_tokens,
 } from 'apis/index';
-
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,8 +35,6 @@ const useStyles = makeStyles((theme) => ({
 const Projects = () => {
     const classes = useStyles();
     const [projects, setProjects] = useState([]);
-    // console.log(projects)
-    // const store = useSelector(store => store);
 
     useEffect(() => {
         get_tokens()

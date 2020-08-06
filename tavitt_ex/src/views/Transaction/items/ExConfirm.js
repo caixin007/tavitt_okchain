@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const ExConfirm = (props) => {
-    const { open, address, price, quantity, cancel, side, tpair, ...rest } = props;
+    const { open, address, price, quantity, cancel, side, tpair } = props;
     const classes = useStyles();
     const [mnemonic, setMnemonic] = useState(null);
     const [err, setErr] = useState(null);

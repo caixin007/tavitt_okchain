@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,9 +6,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
-
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 
 import {
     Button,
@@ -24,9 +20,6 @@ import {
 
 import SendConfirm from './SendConfirm';
 import ExConfirm from './ExConfirm';
-import TransHis from './TransHis';
-import OrderHis from './OrderHis';
-
 import TabPanel from './TabPanel';
 
 const useStyles = makeStyles((theme) => ({
@@ -51,13 +44,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Send = props => {
-    const { className, address, ...rest } = props;
+    const { address } = props;
     const classes = useStyles();
-    // const dispatch = useDispatch();
     const [transactions, setTransactions] = useState([]);
     const [tokenPairs, setTokenPairs] = useState([]);
     const [tokens, setTokens] = useState([]);
-    // okchain17wydevafdqc9fxj8q9zlnd0ay9r32htplz7qzr
     const [openSend, setOpenSend] = useState(false);
     const [to, setTo] = useState(null);
     const [amount, setAmount] = useState(0);
@@ -82,7 +73,6 @@ const Send = props => {
             .catch(err => console.log(err));
         get_account_available(address)
             .then(res => {
-                // console.log(res.data.currencies)
                 setTokens(res.data.currencies);
             })
             .catch(err => console.log(err))
@@ -100,11 +90,9 @@ const Send = props => {
                             To:
                         </Typography>
                         <TextField
-                            // error={error ? true : false}
                             id="to-account"
                             onChange={input => setTo(input.target.value)}
                             style={{ width: '100%' }}
-                            // helperText={error ? error : null}
                             variant="outlined"
                         />
                         <Typography variant="h5">
@@ -112,18 +100,15 @@ const Send = props => {
                         </Typography>
                         <TextField
                             type="number"
-                            // error={error ? true : false}
                             id="trans-amount"
                             onChange={input => setAmount(input.target.value)}
                             style={{ width: '60%' }}
-                            // helperText={error ? error : null}
                             variant="outlined"
                         />
                         <FormControl variant="outlined" style={{ width: '40%' }}>
                             <InputLabel htmlFor="outlined-token-pair-native-simple">Token Name</InputLabel>
                             <Select
                                 native
-                                // value={denom}
                                 onChange={(input) => { setDenom(input.target.value) }}
                                 label="Token name"
                                 variant="outlined"
@@ -139,7 +124,6 @@ const Send = props => {
                             </Select>
 
                         </FormControl>
-                        {/* </div> */}
                         <div className={classes.button}>
                             <Button
                                 style={
@@ -160,7 +144,6 @@ const Send = props => {
                             <InputLabel htmlFor="outlined-token-pair-native-simple">Token Pair</InputLabel>
                             <Select
                                 native
-                                // value={state.age}
                                 onChange={(input) => { setTpair(input.target.value) }}
                                 label="Token Pair"
                                 inputProps={{
@@ -177,22 +160,18 @@ const Send = props => {
                         <div>
                             <TextField
                                 placeholder="Price"
-                                // error={error ? true : false}
                                 type="number"
                                 id="order-price"
                                 onChange={input => setPrice(input.target.value)}
                                 style={{ width: '50%', paddingTop: 20 }}
-                                // helperText={error ? error : null}
                                 variant="outlined"
                             />
                             <TextField
                                 placeholder="Quantity"
-                                // error={error ? true : false}
                                 type="number"
                                 id="order-quantity"
                                 onChange={input => setQuantity(input.target.value)}
                                 style={{ width: '50%', paddingTop: 20 }}
-                                // helperText={error ? error : null}
                                 variant="outlined"
                             />
                         </div>
@@ -202,7 +181,6 @@ const Send = props => {
                                     { backgroundColor: '#eee' }
                                 }
                                 onClick={() => setOpenEx(true)}
-                            // onClick={() => test()}
                             >Exchange</Button>
                         </div>
                     </Paper>
@@ -213,13 +191,6 @@ const Send = props => {
                             address={address}
                             transactions={transactions}
                         />
-                        {/* <Typography variant="h4" className={classes.title}>
-                            Transaction History
-                        </Typography>
-                        <TransHis
-                            address={address}
-                            transactions={transactions}
-                        /> */}
                     </Paper>
                 </Grid>
             </Grid>

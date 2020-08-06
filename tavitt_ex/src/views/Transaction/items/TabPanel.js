@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TabPanel = (props) => {
-    const { address, transactions, ...rest } = props;
+    const { address, transactions } = props;
     const classes = useStyles();
     const [value, setValue] = React.useState('one');
     const handleChange = (event, newValue) => {

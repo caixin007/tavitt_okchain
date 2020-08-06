@@ -3,14 +3,12 @@ import OKChainClient from '@okchain/javascript-sdk';
 import { crypto } from '@okchain/javascript-sdk';
 import Transaction from '@okchain/javascript-sdk/lib/transaction';
 import { formatNumber } from 'apis/helper';
-import { fn } from 'moment';
 
 const serverUrl = "http://18.163.7.245:26659";
-const baseCoin = "tokt";
-// const mnemonic_test = "library valid throw garden gym saddle very recall helmet goddess seminar later"
+// const baseCoin = "tokt";
 const chainId = "okchain"
-const bech32Head = "okchain"
-const mode = "block"
+// const bech32Head = "okchain"
+// const mode = "block"
 const nativeDenom = "tokt"
 
 var defaultFee = {
@@ -91,13 +89,13 @@ export function buildExTrans(address, tpair, price, quantity, side, mnemonic) {
         }]
         const signMsg = msg;
         async function get_ex_tx() {
-            const symbol = tpair
+            // const symbol = tpair
             const client = new OKChainClient(serverUrl)
             const privateKey = crypto.getPrivateKeyFromMnemonic(mnemonic)
             await client.setAccountInfo(privateKey)
             const addr = crypto.getAddressFromPrivateKey(client.privateKey)
             const account = await client.getAccount(addr)
-            const sequence = parseInt((await client.getSequenceNumberFromAccountInfo(account)))
+            // const sequence = parseInt((await client.getSequenceNumberFromAccountInfo(account)))
 
             const sequenceNumber = await client.getSequenceNumberFromAccountInfo(account)
             const account_number = await client.getAccountNumberFromAccountInfo(account)

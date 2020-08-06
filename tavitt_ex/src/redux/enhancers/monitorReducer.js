@@ -1,4 +1,4 @@
-import { bindActionCreators } from "redux"
+// import { bindActionCreators } from "redux"
 
 const round = number => Math.round(number * 100) / 100
 

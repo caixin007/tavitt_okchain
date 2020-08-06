@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const SendConfirm = (props) => {
-    const { open, address, to, amount, cancel, denom, ...rest } = props;
+    const { open, address, to, amount, cancel, denom } = props;
     const classes = useStyles();
     const [mnemonic, setMnemonic] = useState(null);
     const [err, setErr] = useState(null);

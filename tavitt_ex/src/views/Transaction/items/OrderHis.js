@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
     Table,
     TableBody,
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 const OrderHis = (props) => {
-    const { transactions, address, ...rest } = props;
+    const { transactions } = props;
     const classes = useStyles()
     return (<Table className={classes.table}>
         <TableHead>
